@@ -17,7 +17,7 @@ function MenuP() {
 					<button
 						onClick={() => {
 							localStorage.clear();
-							navigate("/inscription");
+							navigate("/");
 						}}
 					>
 						Déconnecter

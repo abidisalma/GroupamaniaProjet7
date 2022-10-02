@@ -95,54 +95,60 @@ function DetailsPost() {
 				<div className="detail">
 					<h2>{post?.title}</h2>
 					<p>{post?.description}</p>
-					<div className="socia">
-						{/*on verifie si l'user n'a pas mis un dislike sur la post*/}
-						{!post?.usersDisliked?.includes(localStorage.getItem("userIds")) ? (
-							<button
-								className="like"
-								onClick={() => {
-									if (
-										post?.usersLiked.includes(localStorage.getItem("userIds"))
-									) {
-										deletelike(post?._id);
-									} else {
-										addlike(post?._id);
-									}
-								}}
-							>
-								<FontAwesomeIcon icon={faThumbsUp} /> {post?.likes} like
-							</button>
-						) : (
-							<button className="like" disabled="true">
-								<FontAwesomeIcon icon={faThumbsUp} /> {post?.likes} like
-							</button>
-						)}
-						{/*on verifie si l'user a mis un like sur la post*/}
-						{!post?.usersLiked?.includes(localStorage.getItem("userIds")) ? (
-							<button
-								className="dislike"
-								onClick={() => {
-									if (
-										post?.usersDisliked.includes(
-											localStorage.getItem("userIds")
-										)
-									) {
-										//on  supprimer un like
-										deletelike(post?._id);
-									} else {
-										//on  ajouter un dislike
-										adddislike(post?._id);
-									}
-								}}
-							>
-								<FontAwesomeIcon icon={faThumbsDown} /> {post?.dislikes} dislike
-							</button>
-						) : (
-							<button className="dislike" disabled="true">
-								<FontAwesomeIcon icon={faThumbsDown} /> {post?.dislikes} dislike
-							</button>
-						)}
-					</div>
+					{localStorage.getItem("userIds") ? (
+						<div className="socia">
+							{/*on verifie si l'user n'a pas mis un dislike sur la post*/}
+							{!post?.usersDisliked?.includes(localStorage.getItem("userIds")) ? (
+								<button
+									className="like"
+									onClick={() => {
+										if (
+											post?.usersLiked.includes(
+												localStorage.getItem("userIds")
+											)
+										) {
+											deletelike(post?._id);
+										} else {
+											addlike(post?._id);
+										}
+									}}
+								>
+									<FontAwesomeIcon icon={faThumbsUp} /> {post?.likes} like
+								</button>
+							) : (
+								<button className="like" disabled="true">
+									<FontAwesomeIcon icon={faThumbsUp} /> {post?.likes} like
+								</button>
+							)}
+							{/*on verifie si l'user n'a pas mis un like sur la post*/}
+							{!post?.usersLiked?.includes(localStorage.getItem("userIds")) ? (
+								<button
+									className="dislike"
+									onClick={() => {
+										if (
+											post?.usersDisliked.includes(
+												localStorage.getItem("userIds")
+											)
+										) {
+											//on  supprimer un like
+											deletelike(post?._id);
+										} else {
+											//on  ajouter un dislike
+											adddislike(post?._id);
+										}
+									}}
+								>
+									<FontAwesomeIcon icon={faThumbsDown} /> {post?.dislikes} dislike
+								</button>
+							) : (
+								<button className="dislike" disabled="true">
+									<FontAwesomeIcon icon={faThumbsDown} /> {post?.dislikes} dislike
+								</button>
+							)}
+						</div>
+					) : (
+						""
+					)}
 					<div className="btn">
 						{localStorage.getItem("role") === "admin" ? (
 							<>
