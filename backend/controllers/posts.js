@@ -60,18 +60,18 @@ exports.modifyPost = (req, res, next) => {
 					description: req.body.description
 				};
 			}
-			if (post.userId != req.auth.userId) {
-				return res.status(403).json({ message: "Not authorized" });
-			} else {
-				Post.updateOne(
-					{
-						_id: req.params.id
-					},
-					data
-				)
-					.then(() => res.status(200).json({ message: "Objet modifié!" }))
-					.catch(error => res.status(401).json({ error }));
-			}
+			// if (post.userId != req.auth.userId ) {
+			// 	return res.status(403).json({ message: "Not authorized" });
+			// } else {
+			Post.updateOne(
+				{
+					_id: req.params.id
+				},
+				data
+			)
+				.then(() => res.status(200).json({ message: "Objet modifié!" }))
+				.catch(error => res.status(401).json({ error }));
+			// }
 		})
 		.catch(error => {
 			res.status(400).json({ error: "error " + error });
@@ -82,20 +82,20 @@ exports.deletePost = (req, res, next) => {
 	Post.findOne({ _id: req.params.id })
 		.then(post => {
 			console.log(post);
-			if (post.userId != req.auth.userId) {
-				return res.status(403).json({ message: "Not authorized" });
-			} else {
-				const filename = post.imageUrl.split("/images/")[1];
-				fs.unlink(`images/${filename}`, () => {
-					Post.deleteOne({ _id: req.params.id })
-						.then(() => {
-							res.status(200).json({ message: "Objet supprimé !" });
-						})
-						.catch(error =>
-							res.status(401).json({ message: "Objet non supprimé !" + error })
-						);
-				});
-			}
+			// if (post.userId != req.auth.userId) {
+			// 	return res.status(403).json({ message: "Not authorized" });
+			// } else {
+			const filename = post.imageUrl.split("/images/")[1];
+			fs.unlink(`images/${filename}`, () => {
+				Post.deleteOne({ _id: req.params.id })
+					.then(() => {
+						res.status(200).json({ message: "Objet supprimé !" });
+					})
+					.catch(error =>
+						res.status(401).json({ message: "Objet non supprimé !" + error })
+					);
+			});
+			// }
 		})
 		.catch(error => {
 			res.status(500).json({ message: "Error : " + error });

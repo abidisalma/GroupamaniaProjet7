@@ -96,7 +96,7 @@ function DetailsPost() {
 					<h2>{post?.title}</h2>
 					<p>{post?.description}</p>
 					<div className="socia">
-						{/*on verifie si l'user a mis un dislike sur la post*/}
+						{/*on verifie si l'user n'a pas mis un dislike sur la post*/}
 						{!post?.usersDisliked?.includes(localStorage.getItem("userIds")) ? (
 							<button
 								className="like"
@@ -130,7 +130,7 @@ function DetailsPost() {
 										//on  supprimer un like
 										deletelike(post?._id);
 									} else {
-										//on  ajouter un like
+										//on  ajouter un dislike
 										adddislike(post?._id);
 									}
 								}}
